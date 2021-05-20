@@ -9,7 +9,7 @@ variables to this container.
 if the variable can't be found in here, only then
 will the global scope be searched.
 
-We still have acces to the gloabal scope but the global
+We still have access to the global scope but the global
 scope does not have access to any variable in this wrapper.
 The global scope has no way of calling and anonymous function!
 
@@ -18,6 +18,17 @@ The global scope has no way of calling and anonymous function!
 // the IIFE wrapper:
 (() => {
   /* =============== app code start =============== */
+
+  // set the world size (everything in the game) to full canvas size
+  const world_width = 480;
+  const world_height = 480;
+
+  // these are used to slow down the fall speed of the player
+  const gravity = 1;
+  const friction = 0.9;
+
+  // set the thickness of the ground
+  const groundDepth = 40;
 
   // variable to hold frequently accessed DOM element
   // this should help with game speed / performance
@@ -29,11 +40,41 @@ The global scope has no way of calling and anonymous function!
     .getElementById("canvas")
     .getContext("2d", { alpha: false });
 
+  let player = new Player(100, 100);
+
+  let ground = {
+    top: world_height - 32,
+  };
+
+  function collideTop(rectangle, top) {
+    if (rectangle.getBottom() > top) {
+      rectangle.setBottom(top);
+    }
+  }
+
+  // the update function is responsible for everything that happens in the game
+  function update() {
+    player.velocity_y += gravity;
+    player.velocity_y *= friction;
+    player.y += player.velocity_y;
+    collideTop(player, ground.top - groundDepth / 2);
+  }
+
   // a render function
   function render() {
-    // render something!
-    display.fillStyle = "#330";
-    display.fillRect(30, 30, 50, 50);
+    // fill the canvas with a colour
+    display.fillStyle = "#303840";
+    display.fillRect(0, 0, world_width, world_height);
+    // draw the ground
+    display.strokeStyle = "#202830";
+    display.beginPath();
+    display.moveTo(0, ground.top);
+    display.lineTo(world_width, ground.top);
+    display.lineWidth = groundDepth;
+    display.stroke();
+    // draw the player
+    display.fillStyle = player.color;
+    display.fillRect(player.x, player.y, player.width, player.height);
   }
 
   // a loop function to call the render function
@@ -42,16 +83,18 @@ The global scope has no way of calling and anonymous function!
     // window every time the browser is ready to redraw
     window.requestAnimationFrame(cycle);
 
+    update();
+
     render();
   }
 
   // set the width of the canvas with a 16px gap at each side
   // this is the initial browser window size. We need to add
   // an event listener to watch the browser window in order for it to re-size dynamically
-  display.canvas.width = document_element.clientWidth - 32;
-  display.canvas.height = document_element.clientHeight - 32;
+  display.canvas.width = world_width;
+  display.canvas.height = world_height;
 
-  // wait fort he ideal time to call our first draw
+  // wait for the ideal time to call our first draw
   window.requestAnimationFrame(cycle);
 
   /* =============== app code end =============== */
