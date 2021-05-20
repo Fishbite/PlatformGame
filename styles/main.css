@@ -1,1 +1,23 @@
 /* main styles */
+
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* fill the browser window */
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+/* center everything */
+body {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
