@@ -2,7 +2,10 @@
 const Player = function (x, y) {
   this.color = "#555";
 
+  this.grounded = false;
+
   this.move_force = 1;
+  this.jump_force = 24;
 
   this.velocity_x = 0;
   this.velocity_y = 0;
@@ -11,7 +14,17 @@ const Player = function (x, y) {
 };
 
 Player.prototype = {
+  ground() {
+    this.grounded = true;
+    this.velocity_y = 0;
+  },
   // move functions
+  jump() {
+    if (this.grounded) {
+      this.grounded = false;
+      this.velocity_y -= this.jump_force;
+    }
+  },
   moveLeft() {
     this.velocity_x -= this.move_force;
   },

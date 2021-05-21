@@ -49,18 +49,27 @@ The global scope has no way of calling and anonymous function!
   function collideTop(rectangle, top) {
     if (rectangle.getBottom() > top) {
       rectangle.setBottom(top);
+
+      return true;
     }
+    return false;
   }
 
   // the update function is responsible for everything that happens in the game
+
   function update() {
     if (controller.left) player.moveLeft();
     if (controller.right) player.moveRight();
+    if (controller.up) {
+      player.jump();
+    }
     console.log(controller.left, controller.right);
 
     player.updatePosition(gravity, friction);
 
-    collideTop(player, ground.top - groundDepth / 2);
+    if (collideTop(player, ground.top - groundDepth / 2)) {
+      player.ground();
+    }
   }
 
   // a render function
@@ -92,7 +101,7 @@ The global scope has no way of calling and anonymous function!
   }
 
   function keyDownUp(e) {
-    e.preventDefault;
+    e.preventDefault();
 
     console.log(e.keyCode);
 
