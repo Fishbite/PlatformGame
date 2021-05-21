@@ -54,9 +54,13 @@ The global scope has no way of calling and anonymous function!
 
   // the update function is responsible for everything that happens in the game
   function update() {
+    if (controller.left) player.x--;
+
     player.velocity_y += gravity;
     player.velocity_y *= friction;
+
     player.y += player.velocity_y;
+
     collideTop(player, ground.top - groundDepth / 2);
   }
 
@@ -88,11 +92,34 @@ The global scope has no way of calling and anonymous function!
     render();
   }
 
+  function keyDownUp(e) {
+    e.preventDefault;
+
+    console.log(e.keyCode);
+
+    let state = e.type == "keydown";
+
+    switch (e.keyCode) {
+      case 37:
+        controller.left = state;
+        break;
+      case 38:
+        controller.right = state;
+        break;
+      case 39:
+        controller.up = state;
+    }
+  }
+
   // set the width of the canvas with a 16px gap at each side
   // this is the initial browser window size. We need to add
   // an event listener to watch the browser window in order for it to re-size dynamically
   display.canvas.width = world_width;
   display.canvas.height = world_height;
+
+  // event listeners
+  window.addEventListener("keydown", keyDownUp);
+  window.addEventListener("keyup", keyDownUp);
 
   // wait for the ideal time to call our first draw
   window.requestAnimationFrame(cycle);
