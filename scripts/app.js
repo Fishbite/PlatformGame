@@ -27,7 +27,7 @@ The global scope has no way of calling and anonymous function!
   const gravity = 1;
   const friction = 0.9;
 
-  // set the thickness of the ground
+  // set the ground thickness.
   const groundDepth = 40;
 
   // variable to hold frequently accessed DOM element
