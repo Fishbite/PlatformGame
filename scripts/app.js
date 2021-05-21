@@ -54,12 +54,11 @@ The global scope has no way of calling and anonymous function!
 
   // the update function is responsible for everything that happens in the game
   function update() {
-    if (controller.left) player.x--;
+    if (controller.left) player.moveLeft();
+    if (controller.right) player.moveRight();
+    console.log(controller.left, controller.right);
 
-    player.velocity_y += gravity;
-    player.velocity_y *= friction;
-
-    player.y += player.velocity_y;
+    player.updatePosition(gravity, friction);
 
     collideTop(player, ground.top - groundDepth / 2);
   }
@@ -102,12 +101,15 @@ The global scope has no way of calling and anonymous function!
     switch (e.keyCode) {
       case 37:
         controller.left = state;
+        console.log("Left");
         break;
       case 38:
-        controller.right = state;
+        controller.up = state;
+        console.log("Up");
         break;
       case 39:
-        controller.up = state;
+        controller.right = state;
+        console.log("right");
     }
   }
 
