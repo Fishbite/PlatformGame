@@ -20,6 +20,7 @@ Player.prototype = {
   },
 
   updatePosition(gravity, friction) {
+    this.velocity_x *= friction;
     this.velocity_y += gravity;
     this.velocity_y *= friction;
 
