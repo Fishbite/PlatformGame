@@ -90,15 +90,16 @@ The global scope has no way of calling and anonymous function!
   }
 
   // a loop function to call the render function
-  function cycle() {
-    // use requestAnimationFrame to refresh the browser
-    // window every time the browser is ready to redraw
-    window.requestAnimationFrame(cycle);
+  // replaced with engine.js
+  // function cycle() {
+  //   // use requestAnimationFrame to refresh the browser
+  //   // window every time the browser is ready to redraw
+  //   window.requestAnimationFrame(cycle);
 
-    update();
+  //   update();
 
-    render();
-  }
+  //   render();
+  // }
 
   function keyDownUp(e) {
     e.preventDefault();
@@ -130,10 +131,15 @@ The global scope has no way of calling and anonymous function!
 
   // event listeners
   window.addEventListener("keydown", keyDownUp);
+
   window.addEventListener("keyup", keyDownUp);
 
   // wait for the ideal time to call our first draw
-  window.requestAnimationFrame(cycle);
+  // now  taken care of by engine.js
+  // window.requestAnimationFrame(cycle);
+
+  engine.setup(update, render);
+  engine.start();
 
   /* =============== app code end =============== */
 })();
