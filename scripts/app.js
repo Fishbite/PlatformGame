@@ -63,7 +63,7 @@ The global scope has no way of calling and anonymous function!
     if (controller.up) {
       player.jump();
     }
-    console.log(controller.left, controller.right);
+    // console.log(controller.left, controller.right);
 
     player.updatePosition(gravity, friction);
 
@@ -104,22 +104,22 @@ The global scope has no way of calling and anonymous function!
   function keyDownUp(e) {
     e.preventDefault();
 
-    console.log(e.keyCode);
+    // console.log(e.keyCode);
 
     let state = e.type == "keydown";
 
     switch (e.keyCode) {
       case 37:
         controller.left = state;
-        console.log("Left");
+        // console.log("Left");
         break;
       case 38:
         controller.up = state;
-        console.log("Up");
+        // console.log("Up");
         break;
       case 39:
         controller.right = state;
-        console.log("right");
+      // console.log("right");
     }
   }
 

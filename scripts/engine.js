@@ -11,6 +11,7 @@ const engine = {
   },
 
   start() {
+    //   'this' refers to 'window' unless this is bound to 'enegine'
     window.requestAnimationFrame(this.startCycle);
   },
 
