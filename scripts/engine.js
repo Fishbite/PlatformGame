@@ -4,24 +4,33 @@ const engine = {
   update: undefined,
   render: undefined,
 
+  // fixed time step start
   accumulated_time: 0,
   current_time: 0,
-  time_step: 1000 / 30,
+  time_step: 1000 / 60, //frames / second
+  // fixed time step end
 
   cycle(time_stamp) {
     window.requestAnimationFrame(this.startCycle);
-
+    // fixed time step start
     this.elapsed_time = time_stamp - this.current_time;
     this.accumulated_time += this.elapsed_time;
     this.current_time = time_stamp;
 
+    let updated = false;
+
+    if (this.accumulated_time > 60) this.accumulated_time = 0; // prevent accumulated time getting too big on slow computers
+
     while (this.accumulated_time >= this.time_step) {
       this.update();
+
+      updated = true;
 
       this.accumulated_time -= this.time_step;
     }
 
-    this.accumulated_time;
+    if (updated) this.render();
+    // fixed time step end
 
     this.render();
   },
