@@ -1,6 +1,9 @@
 /* fixed time step loop engine with pause function */
 
 const engine = {
+  running: false,
+  raf_handle: undefined, // requestAnimationFrame (raf)
+
   update: undefined,
   render: undefined,
 
@@ -11,7 +14,7 @@ const engine = {
   // fixed time step end
 
   cycle(time_stamp) {
-    window.requestAnimationFrame(this.startCycle);
+    this.raf_handle = window.requestAnimationFrame(this.startCycle);
     // fixed time step start
     this.elapsed_time = time_stamp - this.current_time;
     this.accumulated_time += this.elapsed_time;
@@ -19,7 +22,7 @@ const engine = {
 
     let updated = false;
 
-    if (this.accumulated_time > 60) this.accumulated_time = 0; // prevent accumulated time getting too big on slow computers
+    if (this.accumulated_time > 60) this.accumulated_time = this.time_step; // prevent accumulated time getting too big on slow computers
 
     while (this.accumulated_time >= this.time_step) {
       this.update();
@@ -37,10 +40,14 @@ const engine = {
 
   start() {
     //   'this' refers to 'window' unless 'this' is bound to 'enegine'
-    window.requestAnimationFrame(this.startCycle);
+    this.running = true;
+    this.raf_handle = window.requestAnimationFrame(this.startCycle);
   },
 
-  stop() {},
+  stop() {
+    this.running = false;
+    window.cancelAnimationFrame(this.raf_handle);
+  },
 
   setup(update, render) {
     this.update = update;
