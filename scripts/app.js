@@ -119,7 +119,16 @@ The global scope has no way of calling and anonymous function!
         break;
       case 39:
         controller.right = state;
-      // console.log("right");
+        // console.log("right");
+        break;
+      case 80:
+        controller.p = !state; //sloppy method makes you release the 'p' key in oreder to pause :o(
+    }
+    if (controller.p) {
+      console.log('"p" pressed');
+      controller.p = false;
+      if (engine.running) engine.stop();
+      else engine.start();
     }
   }
 
