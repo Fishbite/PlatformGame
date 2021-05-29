@@ -1,45 +1,49 @@
-/* this is the player class but not an ES6 class!!!! */
-const Player = function (x, y) {
-  this.color = "#555";
+STAY_DOWN.constructors.Player = (function (Rectangle2D) {
+  /* this is the player class but not an ES6 class!!!! */
+  const Player = function (x, y) {
+    this.color = "#555";
 
-  this.grounded = false;
+    this.grounded = false;
 
-  this.move_force = 1;
-  this.jump_force = 24;
+    this.move_force = 1;
+    this.jump_force = 24;
 
-  this.velocity_x = 0;
-  this.velocity_y = 0;
-
-  Rectangle2D.call(this, x, y, 32, 32);
-};
-
-Player.prototype = {
-  ground() {
-    this.grounded = true;
+    this.velocity_x = 0;
     this.velocity_y = 0;
-  },
-  // move functions
-  jump() {
-    if (this.grounded) {
-      this.grounded = false;
-      this.velocity_y -= this.jump_force;
-    }
-  },
-  moveLeft() {
-    this.velocity_x -= this.move_force;
-  },
-  moveRight() {
-    this.velocity_x += this.move_force;
-  },
 
-  updatePosition(gravity, friction) {
-    this.velocity_x *= friction;
-    this.velocity_y += gravity;
-    this.velocity_y *= friction;
+    Rectangle2D.call(this, x, y, 32, 32);
+  };
 
-    this.x += this.velocity_x;
-    this.y += this.velocity_y;
-  },
-};
+  Player.prototype = {
+    ground() {
+      this.grounded = true;
+      this.velocity_y = 0;
+    },
+    // move functions
+    jump() {
+      if (this.grounded) {
+        this.grounded = false;
+        this.velocity_y -= this.jump_force;
+      }
+    },
+    moveLeft() {
+      this.velocity_x -= this.move_force;
+    },
+    moveRight() {
+      this.velocity_x += this.move_force;
+    },
 
-Object.assign(Player.prototype, Rectangle2D.prototype);
+    updatePosition(gravity, friction) {
+      this.velocity_x *= friction;
+      this.velocity_y += gravity;
+      this.velocity_y *= friction;
+
+      this.x += this.velocity_x;
+      this.y += this.velocity_y;
+    },
+  };
+
+  Object.assign(Player.prototype, Rectangle2D.prototype);
+
+  return Player;
+})(STAY_DOWN.constructors.Rectangle2D);

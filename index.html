@@ -7,13 +7,21 @@
     <title>Stay Down</title>
     <link rel="stylesheet" href="./styles/main.css" />
     <!-- call these so they are available to app.js -->
+    <script src="./scripts/app.js"></script>
     <script src="./scripts/controller.js"></script>
-    <script src="./scripts/engine.js"></script>
+
+    <!--<script src="./scripts/engine.js"></script>-->
     <script src="./scripts/rectangle2d.js"></script>
     <script src="./scripts/player.js"></script>
+
+    <script src="./game-states/game-states.js"></script>
+    <script src="./game-states/pause.js"></script>
+    <script src="./game-states/run.js"></script>
   </head>
   <body>
     <canvas id="canvas"></canvas>
-    <script src="./scripts/app.js"></script>
+    <script>
+      STAY_DOWN.initialize();
+    </script>
   </body>
 </html>
