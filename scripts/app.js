@@ -111,15 +111,15 @@ The global scope has no way of calling and anonymous function!
     switch (e.keyCode) {
       case 37:
         controller.left = state;
-        // console.log("Left");
+        console.log("Left");
         break;
       case 38:
         controller.up = state;
-        // console.log("Up");
+        console.log("Up");
         break;
       case 39:
         controller.right = state;
-        // console.log("right");
+        console.log("right");
         break;
       case 80:
         controller.p = !state; //sloppy method makes you release the 'p' key in oreder to pause :o(
