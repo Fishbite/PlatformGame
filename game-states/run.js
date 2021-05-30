@@ -46,4 +46,4 @@ STAY_DOWN.states.run = (function (controller, player, GameState) {
   }
 
   return new GameState(update, render);
-})(STAY_DOWN.controller, STAY_DOWN.player, STAY_DOWN.constructors.GameState);
+})(STAY_DOWN.controller, STAY_DOWN.Player, STAY_DOWN.constructors.GameState);

@@ -4,7 +4,7 @@ const STAY_DOWN = {
 };
 
 STAY_DOWN.initialize = function () {
-  this.player = new this.constructors.player(100, 100);
+  this.player = new this.constructors.Player(100, 100);
   this.controller.activate();
 
   this.states.run.update();
